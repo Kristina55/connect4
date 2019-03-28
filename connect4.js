@@ -17,7 +17,7 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-   var board = Array(WIDTH).fill(Array(HEIGHT).fill(null));
+   board = Array(WIDTH).fill(Array(HEIGHT).fill(null));
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -36,7 +36,7 @@ function makeHtmlBoard() {
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
-  board.append(top);
+  board.appendChild(top);
 
   // populating the columns and rows with cells and giving them their y-x coordinates
   for (let y = 0; y < HEIGHT; y++) {
@@ -46,7 +46,7 @@ function makeHtmlBoard() {
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
     }
-    board.append(row);
+    board.appendChild(row);
   }
 }
 
@@ -54,7 +54,7 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  return 5;
 }
 
 /** placeInTable: update DOM to place piece into HTML board */
@@ -62,8 +62,12 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   let div = document.createElement('div');
-  div.classList('peice');
-  document.getElementById(`${y}-${x}`).appendChild(div);
+  div.setAttribute("class", `piece p${currPlayer}`);
+  let position = document.getElementById(`${y}-${x}`);
+  if (!position) {
+    debugger;
+  }
+  position.appendChild(div);
 }
 
 /** endGame: announce game end */
@@ -75,6 +79,7 @@ function endGame(msg) {
 /** handleClick: handle click of column top to play piece */
 
 function handleClick(evt) {
+  console.log('handleClick triggered')
   // get x from ID of clicked cell
   var x = +evt.target.id;
 
@@ -87,7 +92,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
-
+  
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
 
@@ -134,5 +139,7 @@ function checkForWin() {
   }
 }
 
-makeBoard();
-makeHtmlBoard();
+document.addEventListener("DOMContentLoaded", function() {
+  makeBoard();
+  makeHtmlBoard();
+})
