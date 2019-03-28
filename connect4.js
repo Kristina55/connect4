@@ -32,13 +32,13 @@ function makeHtmlBoard() {
   top.addEventListener("click", handleClick);
 
   for (let x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+    let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
   board.append(top);
 
-  // TODO: add comment for this code
+  // populating the columns and rows with cells and giving them their y-x coordinates
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
@@ -61,6 +61,9 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  let div = document.createElement('div');
+  div.classList('peice');
+  document.getElementById(`${y}-${x}`).appendChild(div);
 }
 
 /** endGame: announce game end */
